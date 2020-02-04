@@ -2,7 +2,6 @@ from __future__ import print_function, with_statement, division
 import copy
 import os
 import torch
-from tqdm.autonotebook import tqdm
 from torch.optim.lr_scheduler import _LRScheduler
 import matplotlib.pyplot as plt
 
@@ -184,7 +183,7 @@ class LRFinder(object):
 
         # Create an iterator to get data batch by batch
         iter_wrapper = DataLoaderIterWrapper(train_loader)
-        for iteration in tqdm(range(num_iter)):
+        for iteration in range(num_iter):
             # Train on batch and retrieve loss
             loss = self._train_batch(iter_wrapper, accumulation_steps)
             if val_loader:
