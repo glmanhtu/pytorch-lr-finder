@@ -285,7 +285,9 @@ class LRFinder(object):
         running_loss = 0
         self.model.eval()
         with torch.no_grad():
-            for inputs, labels in dataloader:
+            for batch_data in dataloader:
+                inputs = batch_data['image']
+                labels = batch_data['score'].view(-1, 1)
                 # Move data to the correct device
                 inputs, labels = self._move_to_device(inputs, labels)
 
