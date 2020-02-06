@@ -449,13 +449,13 @@ class DataLoaderIterWrapper(object):
         # Get a new set of inputs and labels
         try:
             batch_data = next(self._iterator)
-            inputs = batch_data['image']
-            labels = batch_data['score'].view(-1, 1)
         except StopIteration:
             if not self.auto_reset:
                 raise
             self._iterator = iter(self.data_loader)
-            inputs, labels = next(self._iterator)
+            batch_data = next(self._iterator)
+        inputs = batch_data['image']
+        labels = batch_data['score'].view(-1, 1)
 
         return inputs, labels
 
